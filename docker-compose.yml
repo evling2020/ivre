@@ -1,0 +1,60 @@
+version: '3.8'
+services:
+  db:
+    image: ivre/db
+    container_name: ivre_db_1
+    volumes:
+      - /data/storage/ivre/db/data:/var/lib/mongodb
+      - /data/storage/ivre/db/log:/var/log/mongodb
+    restart: always
+
+  web:
+    build: ./web
+    #image: ivre/web
+    container_name: ivre_web_1
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    working_dir: /data
+    volumes:
+      - ./web/default:/etc/nginx/sites-available/default:ro
+      - ./web/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./web/ssl:/etc/ssl/private
+      - /var/log/nginx:/var/log/nginx
+
+  client:
+    build: ./client
+    container_name: ivre_client_1
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - SCAN_DIR=/ivre-share
+    volumes:
+      - /dev/net:/dev/net:z
+      - ./client/data:/data
+      - /data/storage/ivre-share:/ivre-share
+    cap_add:
+      - net_admin
+    tty: true
+    working_dir: /ivre-share
+    #command: /bin/bash
+
+  cron:
+    # This containers handles crontabs for the other containers, following the 1 task per container principle.
+    # It is based on  `docker:latest` image, wich is an alpine image with docker binary
+    build: ./cron
+    command: [sh, -c, "/bin/sh /cron/entrypoint.sh && echo -e '0 7 * * 1        docker exec -itd ivre_client_1 /bin/bash -c \"/usr/local/bin/ivre ipdata --download >> /var/log/ivre.log 2>&1\"\n* * * * *        /usr/local/bin/docker exec -itd ivre_client_1 /bin/bash -c \"/bin/bash /data/scan.sh >> /var/log/ivre.log 2>&1\"\n0 8 * * 1       /bin/sh /cron/scan.sh' > /etc/crontabs/root && crond -f -l 8"]
+    restart: always
+    environment:
+      - DB_STORAGE=/data/storage/ivre_tmp
+    working_dir: /cron
+    depends_on:
+      - web
+      - client
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # This bind-mout allows using the hosts docker deamon instead of created one inside the container
+      - ./cron/data:/cron
+      - /data/storage/ivre-share:/ivre-share
+      # Those volumes will contain the cron jobs
+      #- ./containers-data/cron-jobs/1min:/etc/periodic/1min/:ro
