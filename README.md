@@ -99,14 +99,14 @@
 	
 ## 效果展示
 - 资产罗列页
-	![Screen Shot 2022-02-26 at 7.01.18 PM.png](./images/Screen Shot 2022-02-26 at 7.01.18 PM.png)
+	![Screen Shot 2022-02-26 at 7.01.18 PM.png](./images/Screen%20Shot%202022-02-26%20at%207.01.18%20PM.png)
 
 - 详情页
-	![Screen Shot 2022-02-26 at 7.02.53 PM.png](./images/Screen Shot 2022-02-26 at 7.02.53 PM.png)
+	![Screen Shot 2022-02-26 at 7.02.53 PM.png](./images/Screen%20Shot%202022-02-26%20at%207.02.53%20PM.png)
 
 - 检索效果页
 	按`cpe:a:openbsd:openssh:8.8p1`进行检索
-	![Screen Shot 2022-02-26 at 6.56.54 PM.png](./images/Screen Shot 2022-02-26 at 6.56.54 PM.png)
+	![Screen Shot 2022-02-26 at 6.56.54 PM.png](./images/Screen%20Shot%202022-02-26%20at%206.56.54%20PM.png)
 
 
 ## 法律免责声明
