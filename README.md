@@ -22,7 +22,7 @@
 - **扫描客户端（client）:** 在收到 IP 信息库更新指令后从 https://ivre.rocks/ 站点下载最新 IP 数据库；在接收到扫描指令后读取资产信息，并对其实施扫描，扫描中的数据存放至名为 ivre2 的临时数据库，扫描完成后，在与 cron 一个共享目录创建 .done 文件，告知 cron 任务已完成。
 - **web展示端（web）**: 提供数据检索及可视化，供消费者直观使用。
 
-![ivre-auto-scan.png](images/ivre-auto-scan.png)
+	![ivre-auto-scan.png](images/ivre-auto-scan.png)
 
 
 ## 快速开始
@@ -30,10 +30,10 @@
 - docker 安装可参考: https://docs.docker.com/engine/install/
 - docker-compose 安装可参考: https://docs.docker.com/compose/install/
 2. 克隆项目到本地，并切换工作目录到 ivre 下
-```bash
-git clone https://github.com/evling2020/ivre
-cd ivre
-```
+	```bash
+	git clone https://github.com/evling2020/ivre
+	cd ivre
+	```
 3. 预定资产信息，编辑扫描客户端资产定义文件`client/data/assets.txt `，如下为示范内容：
 	```bash
 	10.66.1.0/24;;net_mgr;intranet
@@ -99,14 +99,14 @@ cd ivre
 	
 ## 效果展示
 - 资产罗列页
-	![Screen Shot 2022-02-26 at 7.01.18 PM.png](images/Screen Shot 2022-02-26 at 7.01.18 PM.png)
+	![Screen Shot 2022-02-26 at 7.01.18 PM.png](./images/Screen Shot 2022-02-26 at 7.01.18 PM.png)
 
 - 详情页
-	![Screen Shot 2022-02-26 at 7.02.53 PM.png](images/Screen Shot 2022-02-26 at 7.02.53 PM)
+	![Screen Shot 2022-02-26 at 7.02.53 PM.png](./images/Screen Shot 2022-02-26 at 7.02.53 PM.png)
 
 - 检索效果页
 	按`cpe:a:openbsd:openssh:8.8p1`进行检索
-	![Screen Shot 2022-02-26 at 6.56.54 PM.png](images/Screen Shot 2022-02-26 at 6.56.54 PM)
+	![Screen Shot 2022-02-26 at 6.56.54 PM.png](./images/Screen Shot 2022-02-26 at 6.56.54 PM.png)
 
 
 ## 法律免责声明
