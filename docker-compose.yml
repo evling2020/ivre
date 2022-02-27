@@ -44,7 +44,7 @@ services:
     # This containers handles crontabs for the other containers, following the 1 task per container principle.
     # It is based on  `docker:latest` image, wich is an alpine image with docker binary
     build: ./cron
-    command: [sh, -c, "/bin/sh /cron/entrypoint.sh && echo -e '0 7 * * 1        docker exec -itd ivre_client_1 /bin/bash -c \"/usr/local/bin/ivre ipdata --download >> /var/log/ivre.log 2>&1\"\n* * * * *        /usr/local/bin/docker exec -itd ivre_client_1 /bin/bash -c \"/bin/bash /data/scan.sh >> /var/log/ivre.log 2>&1\"\n0 8 * * 1       /bin/sh /cron/scan.sh' > /etc/crontabs/root && crond -f -l 8"]
+    command: [sh, -c, "/bin/sh /cron/entrypoint.sh && echo -e '0 7 * * 1        /usr/local/bin/docker exec -itd ivre_client_1 /bin/bash -c \"/usr/local/bin/ivre ipdata --download >> /var/log/ivre.log 2>&1\"\n0 8 * * 1        /usr/local/bin/docker exec -itd ivre_client_1 /bin/bash -c \"/bin/bash /data/scan.sh >> /var/log/ivre.log 2>&1\"\n* * * * *       /bin/sh /cron/switch.sh' > /etc/crontabs/root && crond -f -l 8"]
     restart: always
     environment:
       - DB_STORAGE=/data/storage/ivre_tmp
