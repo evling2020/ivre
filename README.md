@@ -81,7 +81,7 @@
 		# This containers handles crontabs for the other containers, following the 1 task per container principle.
 		# It is based on  `docker:latest` image, wich is an alpine image with docker binary
 		build: ./cron
-		command: [sh, -c, "/bin/sh /cron/entrypoint.sh && echo -e '0 7 * * 1        docker exec -itd ivre_client_1 /bin/bash -c \"/usr/local/bin/ivre ipdata --download >> /var/log/ivre.log 2>&1\"\n* * * * *        /usr/local/bin/docker exec -itd ivre_client_1 /bin/bash -c \"/bin/bash /data/scan.sh >> /var/log/ivre.log 2>&1\"\n0 8 * * 1       /bin/sh /cron/scan.sh' > /etc/crontabs/root && crond -f -l 8"]
+		command: [sh, -c, "/bin/sh /cron/entrypoint.sh && echo -e '0 7 * * 1        /usr/local/bin/docker exec -itd ivre_client_1 /bin/bash -c \"/usr/local/bin/ivre ipdata --download >> /var/log/ivre.log 2>&1\"\n0 8 * * 1        /usr/local/bin/docker exec -itd ivre_client_1 /bin/bash -c \"/bin/bash /data/scan.sh >> /var/log/ivre.log 2>&1\"\n* * * * *       /bin/sh /cron/switch.sh' > /etc/crontabs/root && crond -f -l 8"]
 	...
 	```
 6. 修改 nginx 配置信息，如有必要，建议替换如下 ssl 证书及密钥文件为实际的文件，并修改 `web/default` 的服务器域名 `localhost` 为实际域名。

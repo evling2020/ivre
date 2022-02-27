@@ -46,8 +46,6 @@ services:
     build: ./cron
     command: [sh, -c, "/bin/sh /cron/entrypoint.sh && echo -e '0 7 * * 1        /usr/local/bin/docker exec -itd ivre_client_1 /bin/bash -c \"/usr/local/bin/ivre ipdata --download >> /var/log/ivre.log 2>&1\"\n0 8 * * 1        /usr/local/bin/docker exec -itd ivre_client_1 /bin/bash -c \"/bin/bash /data/scan.sh >> /var/log/ivre.log 2>&1\"\n* * * * *       /bin/sh /cron/switch.sh' > /etc/crontabs/root && crond -f -l 8"]
     restart: always
-    environment:
-      - DB_STORAGE=/data/storage/ivre_tmp
     working_dir: /cron
     depends_on:
       - web
