@@ -3,7 +3,6 @@
 export  PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 filename="/data/assets.txt"
-new_cname=$(cat /ivre-share/cname)
 scan_log="/var/log/ivre.log"
 scan_root_dir="/ivre-share/scans/$(date +%Y%m%d)"
 
